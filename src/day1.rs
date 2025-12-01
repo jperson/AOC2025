@@ -14,17 +14,18 @@ struct Rot {
 }
 
 fn parse_input(input: &str) -> Vec<Rot> {
-    let moves: Vec<Rot> = input
+    input
         .lines()
         .map(|l| {
             let d = l.chars().nth(0).unwrap();
             let m: i32 = l[1..].parse().unwrap();
 
-            let d = if d == 'L' { Dir::Left } else { Dir::Right };
-            Rot { d, m }
+            Rot {
+                d: if d == 'L' { Dir::Left } else { Dir::Right },
+                m,
+            }
         })
-        .collect();
-    return moves;
+        .collect()
 }
 
 pub fn day1_1(input: &str) -> i32 {
@@ -52,20 +53,17 @@ pub fn day1_2(input: &str) -> i32 {
     let moves = parse_input(input);
 
     for m in moves {
-        if m.d == Dir::Left {
-            count += m.m / 100;
-            let m = (m.m).rem_euclid(100);
+        count += m.m / 100;
+        let mv = m.m % 100;
 
-            let new_pos = (pos - m).rem_euclid(100);
+        if m.d == Dir::Left {
+            let new_pos = (pos - mv).rem_euclid(100);
             if (new_pos > pos || new_pos == 0) && pos != 0 {
                 count += 1;
             }
             pos = new_pos;
         } else {
-            count += m.m / 100;
-            let m = (m.m).rem_euclid(100);
-
-            let new_pos = (pos + m).rem_euclid(100);
+            let new_pos = (pos + mv).rem_euclid(100);
 
             if (new_pos < pos || new_pos == 0) && pos != 0 {
                 count += 1;
