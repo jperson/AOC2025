@@ -1,6 +1,3 @@
-use anyhow::Error;
-use rustc_hash::{FxHashMap, FxHashSet};
-
 #[derive(Debug, Eq, PartialEq)]
 enum Dir {
     Left,
