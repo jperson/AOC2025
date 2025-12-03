@@ -17,20 +17,18 @@ fn main() {
         //part 1
         let input = include_str!("../inputs/day1.txt");
 
-        let result = day1::day1_1(&input);
+        let result = day1::day1_1(input);
         println!("part 1: {result:?}");
 
-        let result = day1::day1_2(&input);
+        let result = day1::day1_2(input);
         println!("part 2: {result:?}");
     }
 
     if args.day == 2 {
         let input = include_str!("../inputs/day2.txt");
 
-        let result = day2::part1(&input);
-        println!("part 1: {result:?}");
-
-        let result = day2::part2(&input);
-        println!("part 2: {result:?}");
+        let (r1, r2) = day2::day2(input);
+        println!("part 1: {r1:?}");
+        println!("part 2: {r2:?}");
     }
 }
