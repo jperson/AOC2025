@@ -36,46 +36,48 @@ fn split_range(mut start: u64, end: u64) -> Vec<(u64, u64)> {
     rs
 }
 
+fn process_range(start: u64, end: u64, p1: &mut FxHashSet<u64>, p2: &mut FxHashSet<u64>) {
+    let len: u32 = start.ilog10();
+
+    for i in 0..=(len / 2) {
+        let mut n: u64 = 1;
+        let div = 10_u64.pow(len - i);
+
+        let start_pfx = start / div;
+        let end_pfx = end / div;
+
+        'outer: for exp in 1.. {
+            n += 10_u64.pow(exp).pow(i + 1);
+
+            for v in start_pfx..=end_pfx {
+                let product = n * v;
+
+                if product < start {
+                    continue;
+                }
+
+                if product > end {
+                    break 'outer;
+                }
+
+                if i == len / 2 {
+                    p1.insert(product);
+                }
+
+                p2.insert(product);
+            }
+        }
+    }
+}
+
 pub fn day2(input: &str) -> (u64, u64) {
     let mut p1: FxHashSet<u64> = FxHashSet::default();
     let mut p2: FxHashSet<u64> = FxHashSet::default();
 
-    let ids = parse_input(input);
-
-    for id in ids {
-        for (start, end) in split_range(id.start, id.end) {
-            let len: u32 = start.ilog10();
-
-            for i in 0..=(len / 2) {
-                let mut n: u64 = 1;
-                let div = 10_u64.pow(len - i);
-
-                let start_pfx = start / div;
-                let end_pfx = end / div;
-
-                'outer: for exp in 1.. {
-                    n += 10_u64.pow(exp).pow(i + 1);
-
-                    for v in start_pfx..=end_pfx {
-                        let product = n * v;
-
-                        if product > end {
-                            break 'outer;
-                        }
-
-                        if product >= start {
-                            //part1
-                            if i == len / 2 {
-                                p1.insert(product);
-                            }
-
-                            p2.insert(product);
-                        }
-                    }
-                }
-            }
-        }
-    }
+    parse_input(input)
+        .into_iter()
+        .flat_map(|id| split_range(id.start, id.end))
+        .for_each(|(start, end)| process_range(start, end, &mut p1, &mut p2));
 
     (p1.into_iter().sum(), p2.into_iter().sum())
 }
