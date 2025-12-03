@@ -2,8 +2,8 @@ use rustc_hash::FxHashSet;
 
 #[derive(Debug)]
 struct Id {
-    start: u64,
-    end: u64,
+    start: u128,
+    end: u128,
 }
 
 fn parse_input(input: &str) -> Vec<Id> {
@@ -19,12 +19,12 @@ fn parse_input(input: &str) -> Vec<Id> {
         .collect()
 }
 
-fn split_range(mut start: u64, end: u64) -> Vec<(u64, u64)> {
-    let mut rs: Vec<(u64, u64)> = vec![];
+fn split_range(mut start: u128, end: u128) -> Vec<(u128, u128)> {
+    let mut rs: Vec<(u128, u128)> = vec![];
 
     while start <= end {
         if start.ilog10() < end.ilog10() {
-            let new_end = 10_u64.pow(start.ilog10() + 1) - 1;
+            let new_end = 10_u128.pow(start.ilog10() + 1) - 1;
             rs.push((start, new_end));
             start = new_end + 1;
         } else {
@@ -36,18 +36,20 @@ fn split_range(mut start: u64, end: u64) -> Vec<(u64, u64)> {
     rs
 }
 
-fn process_range(start: u64, end: u64, p1: &mut FxHashSet<u64>, p2: &mut FxHashSet<u64>) {
+fn process_range(start: u128, end: u128) -> (u128, u128) {
+    let mut p1: FxHashSet<u128> = FxHashSet::default();
+    let mut p2: FxHashSet<u128> = FxHashSet::default();
     let len: u32 = start.ilog10();
 
     for i in 0..=(len / 2) {
-        let mut n: u64 = 1;
-        let div = 10_u64.pow(len - i);
+        let mut n: u128 = 1;
+        let div = 10_u128.pow(len - i);
 
         let start_pfx = start / div;
         let end_pfx = end / div;
 
         'outer: for exp in 1.. {
-            n += 10_u64.pow(exp).pow(i + 1);
+            n += 10_u128.pow(exp).pow(i + 1);
 
             for v in start_pfx..=end_pfx {
                 let product = n * v;
@@ -68,18 +70,18 @@ fn process_range(start: u64, end: u64, p1: &mut FxHashSet<u64>, p2: &mut FxHashS
             }
         }
     }
+
+    (p1.into_iter().sum(), p2.into_iter().sum())
 }
 
-pub fn day2(input: &str) -> (u64, u64) {
-    let mut p1: FxHashSet<u64> = FxHashSet::default();
-    let mut p2: FxHashSet<u64> = FxHashSet::default();
-
+pub fn day2(input: &str) -> (u128, u128) {
     parse_input(input)
         .into_iter()
         .flat_map(|id| split_range(id.start, id.end))
-        .for_each(|(start, end)| process_range(start, end, &mut p1, &mut p2));
+        .map(|(start, end)| process_range(start, end))
+        .fold((0, 0), |(t1, t2), (p1, p2)| (t1 + p1, t2 + p2))
 
-    (p1.into_iter().sum(), p2.into_iter().sum())
+    //(p1.into_iter().sum(), p2.into_iter().sum())
 }
 
 #[cfg(test)]
@@ -114,5 +116,12 @@ mod tests {
         let (r1, r2) = day2(input);
         assert_eq!(r1, e1);
         assert_eq!(r2, e2);
+    }
+
+    #[test]
+    fn test_part3() {
+        let input: &str = "1-18446744073709551615";
+        day2(input);
+        //println!("{:?}", split_range(1, 18446744073709551615));
     }
 }
