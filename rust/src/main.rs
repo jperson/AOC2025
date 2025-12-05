@@ -5,6 +5,7 @@ pub mod day1;
 pub mod day2;
 pub mod day3;
 pub mod day4;
+pub mod day5;
 
 #[derive(Parser)]
 #[command(name = "AOC25")]
@@ -63,6 +64,22 @@ fn main() {
 
         let start = Instant::now();
         let r2 = day4::part2(input);
+        let duration = start.elapsed();
+        println!("{}", r2);
+        println!("Time elapsed: {:?}", duration);
+    }
+
+    if args.day == 5 {
+        let input = include_str!("../inputs/day5.txt");
+
+        let start = Instant::now();
+        let r1 = day5::part1(input);
+        let duration = start.elapsed();
+        println!("{}", r1);
+        println!("Time elapsed: {:?}", duration);
+
+        let start = Instant::now();
+        let r2 = day5::part2(input);
         let duration = start.elapsed();
         println!("{}", r2);
         println!("Time elapsed: {:?}", duration);
