@@ -10,7 +10,7 @@ fn parse_input(input: &str) -> Vec<Vec<u64>> {
         .collect::<Vec<Vec<_>>>()
 }
 
-pub fn day3(input: &str, digits: usize) -> u64 {
+fn day3(input: &str, digits: usize) -> u64 {
     parse_input(input).into_iter().fold(0, |mut joltage, b| {
         let mut bi: usize = 0;
 
@@ -29,6 +29,14 @@ pub fn day3(input: &str, digits: usize) -> u64 {
         }
         joltage
     })
+}
+
+pub fn part1(input: &str) -> u64 {
+    day3(input, 2)
+}
+
+pub fn part2(input: &str) -> u64 {
+    day3(input, 12)
 }
 
 #[cfg(test)]

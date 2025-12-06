@@ -80,8 +80,16 @@ pub fn day2(input: &str) -> (u128, u128) {
         .flat_map(|id| split_range(id.start, id.end))
         .map(|(start, end)| process_range(start, end))
         .fold((0, 0), |(t1, t2), (p1, p2)| (t1 + p1, t2 + p2))
+}
 
-    //(p1.into_iter().sum(), p2.into_iter().sum())
+pub fn part1(input: &str) -> u128 {
+    let (r, _) = day2(input);
+    r
+}
+
+pub fn part2(input: &str) -> u128 {
+    let (_, r) = day2(input);
+    r
 }
 
 #[cfg(test)]

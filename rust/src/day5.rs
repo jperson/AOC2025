@@ -33,13 +33,11 @@ fn merge_ranges(rs: &mut Vec<Range>) -> () {
     let mut i = 1;
 
     while i < rs.len() {
-        if rs[i - 1].end < rs[i].start {
+        if rs[i - 1].end >= rs[i].start {
+            rs[i - 1].end = rs[i - 1].end.max(rs[i].end);
+            rs.remove(i);
+        } else {
             i += 1;
-        } else if rs[i - 1].end <= rs[i].end {
-            rs[i - 1].end = rs[i].end;
-            rs.remove(i);
-        } else if rs[i - 1].end > rs[i].end {
-            rs.remove(i);
         }
     }
 }

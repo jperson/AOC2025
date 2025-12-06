@@ -25,7 +25,7 @@ fn parse_input(input: &str) -> Vec<Rot> {
         .collect()
 }
 
-pub fn day1_1(input: &str) -> i32 {
+pub fn part1(input: &str) -> i32 {
     let mut pos: i32 = 50;
     let mut count = 0;
     let moves = parse_input(input);
@@ -44,7 +44,7 @@ pub fn day1_1(input: &str) -> i32 {
     return count;
 }
 
-pub fn day1_2(input: &str) -> i32 {
+pub fn part2(input: &str) -> i32 {
     let mut pos: i32 = 50;
     let mut count = 0;
     let moves = parse_input(input);
@@ -77,7 +77,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_day1_1() {
+    fn test_part1() {
         let expected: i32 = 3;
         let input: &str = "L68
 L30
@@ -91,12 +91,12 @@ R14
 L82
 ";
 
-        let result = day1_1(&input);
+        let result = part1(&input);
         assert_eq!(expected, result);
     }
 
     #[test]
-    fn test_day1_2() {
+    fn test_part2() {
         let expected: i32 = 6;
         let input: &str = "L68
 L30
@@ -110,7 +110,7 @@ R14
 L82
 ";
 
-        let result = day1_2(&input);
+        let result = part2(&input);
         assert_eq!(expected, result);
     }
 }
