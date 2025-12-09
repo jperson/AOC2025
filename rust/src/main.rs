@@ -8,6 +8,7 @@ pub mod day4;
 pub mod day5;
 pub mod day6;
 pub mod day7;
+pub mod day8;
 
 #[derive(Parser)]
 #[command(name = "AOC25")]
@@ -53,4 +54,5 @@ fn main() {
     aoc!(args, day5);
     aoc!(args, day6);
     aoc!(args, day7);
+    aoc!(args, day8);
 }

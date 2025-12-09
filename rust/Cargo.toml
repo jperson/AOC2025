@@ -8,6 +8,7 @@ anyhow = "1.0.100"
 rustc-hash = "2.1.1"
 clap = { version = "4.5.53", features = ["derive"] }
 cached = "0.56.0"
+itertools = "0.14.0"
 
 # [profile.release]
 # debug = "line-tables-only"
