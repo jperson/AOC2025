@@ -2,6 +2,7 @@ use clap::Parser;
 use std::time::Instant;
 
 pub mod day1;
+pub mod day10;
 pub mod day2;
 pub mod day3;
 pub mod day4;
@@ -57,4 +58,5 @@ fn main() {
     aoc!(args, day7);
     aoc!(args, day8);
     aoc!(args, day9);
+    aoc!(args, day10);
 }
