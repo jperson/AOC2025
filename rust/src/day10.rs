@@ -1,7 +1,5 @@
 use good_lp::*;
-use std::cmp::Ordering;
-use std::cmp::Reverse;
-use std::collections::{BinaryHeap, HashSet, VecDeque};
+use std::collections::VecDeque;
 
 #[derive(Debug)]
 struct Machine {
@@ -100,8 +98,6 @@ pub fn part2(input: &str) -> i32 {
         }
 
         let n_vectors = vectors.len();
-        let dim = m.joltages.len();
-
         let mut vars = ProblemVariables::new();
 
         let coeffs: Vec<Variable> = (0..n_vectors)
