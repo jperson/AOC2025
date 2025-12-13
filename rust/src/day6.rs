@@ -36,7 +36,7 @@ fn parse_input_2(input: &str) -> Vec<Vec<Op>> {
     let ops: Vec<_> = ops
         .into_iter()
         .filter(|op| *op != ' ')
-        .map(|op| String::from(op))
+        .map(String::from)
         .collect();
 
     //transpose num matrix

@@ -29,7 +29,7 @@ fn parse_input(input: &str) -> (Vec<Range>, Vec<u64>) {
     (range_set, ingredients)
 }
 
-fn merge_ranges(rs: &mut Vec<Range>) -> () {
+fn merge_ranges(rs: &mut Vec<Range>) {
     let mut i = 1;
 
     while i < rs.len() {

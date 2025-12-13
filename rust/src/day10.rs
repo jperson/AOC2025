@@ -1,3 +1,4 @@
+use cached::proc_macro::cached;
 use good_lp::*;
 use std::collections::VecDeque;
 

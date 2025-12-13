@@ -40,7 +40,7 @@ fn pass(grid: &mut [Vec<char>], mark: bool) -> u64 {
 
     for x in 0..grid[0].len() {
         for y in 0..grid.len() {
-            if grid[x][y] == '@' && count_adjacent(&grid, (x, y)) < 4 {
+            if grid[x][y] == '@' && count_adjacent(grid, (x, y)) < 4 {
                 rolls += 1;
                 if mark {
                     grid[x][y] = 'x';

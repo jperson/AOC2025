@@ -1,5 +1,5 @@
 use cached::proc_macro::cached;
-use std::collections::{HashMap, HashSet, VecDeque};
+use std::collections::{HashMap, HashSet};
 
 fn parse_input(input: &str) -> HashMap<&str, HashSet<&str>> {
     input
@@ -7,7 +7,7 @@ fn parse_input(input: &str) -> HashMap<&str, HashSet<&str>> {
         .map(|l| {
             let _ = l.trim();
             let (name, values) = l.split_once(": ").unwrap();
-            let links: Vec<&str> = values.split(' ').into_iter().collect::<Vec<&str>>();
+            let links: Vec<&str> = values.split(' ').collect::<Vec<&str>>();
             (name, HashSet::from_iter(links))
         })
         .collect()
@@ -25,7 +25,7 @@ fn dfs(graph: &HashMap<&str, HashSet<&str>>, cur: &str, fft: bool, dac: bool) ->
     let mut count: u64 = 0;
     if let Some(edges) = graph.get(cur) {
         for e in edges {
-            count += dfs(&graph, *e, fft || *e == "fft", dac || *e == "dac");
+            count += dfs(graph, e, fft || *e == "fft", dac || *e == "dac");
         }
     }
 

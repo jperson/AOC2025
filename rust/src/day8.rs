@@ -23,7 +23,7 @@ impl DisjointSet {
             return n;
         }
 
-        return self.find(self.parent[n]);
+        self.find(self.parent[n])
     }
 
     pub fn union(&mut self, a: usize, b: usize) {
@@ -76,7 +76,7 @@ fn all_dist(boxes: &[Vec<f64>]) -> Vec<(usize, usize, f64)> {
             let a: &[f64] = &boxes[x][..];
             let b: &[f64] = &boxes[y][..];
             let d = (a[0] - b[0]).powf(2.) + (a[1] - b[1]).powf(2.) + (a[2] - b[2]).powf(2.);
-            let d = (d as f64).sqrt();
+            let d = d.sqrt();
 
             let d = (x.min(y), x.max(y), d);
             seen.insert((d.0, d.1));
@@ -100,7 +100,7 @@ pub fn part1(input: &str) -> u64 {
 
     dj.size.sort();
     dj.size.reverse();
-    dj.size[..3].into_iter().product::<usize>() as u64
+    dj.size[..3].iter().product::<usize>() as u64
 }
 
 pub fn part2(input: &str) -> u64 {

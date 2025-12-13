@@ -14,7 +14,7 @@ fn parse_input(input: &str) -> Vec<Rot> {
     input
         .lines()
         .map(|l| {
-            let d = l.chars().nth(0).unwrap();
+            let d = l.chars().next().unwrap();
             let m: i32 = l[1..].parse().unwrap();
 
             Rot {
@@ -41,7 +41,7 @@ pub fn part1(input: &str) -> i32 {
         }
     }
 
-    return count;
+    count
 }
 
 pub fn part2(input: &str) -> i32 {
@@ -69,7 +69,7 @@ pub fn part2(input: &str) -> i32 {
         }
     }
 
-    return count;
+    count
 }
 
 #[cfg(test)]
